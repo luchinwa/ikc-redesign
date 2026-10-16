@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Учебный центр ИКЦ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky header → deep-blue hero with sample certificate → facts strip → filterable catalog → reasons → enquiry form → two branch cards → footer with legal info */
+:root{
+  --bg:#F4F6F9; --surface:#FFFFFF; --ink:#0E2135; --muted:#56677B; --line:#D9E1EA;
+  --brand:#1559A8; --brand-soft:#E5EEF8; --brand-ink:#FFFFFF;
+  --hero:#0D3A6E; --hero-ink:#FFFFFF; --hero-muted:#B9CDE6;
+  --signal:#F5B800; --signal-ink:#17140A;
+  --paper:#FBF8EE; --paper-ink:#2A2A2A; --stamp:#2B5DB8;
+  --ok:#1E7F4F;
+  --display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --r:10px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1520; --surface:#111F2E; --ink:#E6EDF5; --muted:#93A4B7; --line:#22364B;
+    --brand:#5A9BEA; --brand-soft:#15304D; --brand-ink:#08121C;
+    --hero:#0C2744; --hero-ink:#F2F6FB; --hero-muted:#9DB5D3;
+    --signal:#FFC62E; --signal-ink:#17140A;
+    --paper:#EDE8D8; --paper-ink:#262626; --stamp:#2B5DB8; --ok:#4CC28A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1520; --surface:#111F2E; --ink:#E6EDF5; --muted:#93A4B7; --line:#22364B;
+  --brand:#5A9BEA; --brand-soft:#15304D; --brand-ink:#08121C;
+  --hero:#0C2744; --hero-ink:#F2F6FB; --hero-muted:#9DB5D3;
+  --signal:#FFC62E; --signal-ink:#17140A;
+  --paper:#EDE8D8; --paper-ink:#262626; --stamp:#2B5DB8; --ok:#4CC28A;
+  color-scheme:dark;
+}
+/* Версия для слабовидящих */
+html:root.a11y{
+  --bg:#FFFFFF; --surface:#FFFFFF; --ink:#000000; --muted:#000000; --line:#000000;
+  --brand:#002C6B; --brand-soft:#FFFFFF; --brand-ink:#FFFFFF;
+  --hero:#FFFFFF; --hero-ink:#000000; --hero-muted:#000000;
+  --signal:#002C6B; --signal-ink:#FFFFFF; --ok:#000000;
+  color-scheme:light; font-size:125%;
+}
+html.a11y .cert{display:none}
+html.a11y .hero{border-bottom:3px solid var(--ink)}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 var(--body);-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+[hidden]{display:none!important}
+a{color:var(--brand)}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:20px}
+.mono{font-family:var(--mono);font-size:.82em;letter-spacing:.02em}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.section{padding-block:72px}
+.section-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 32px;margin-bottom:32px}
+.section-head h2{font:700 clamp(1.5rem,3vw,2.1rem)/1.15 var(--display);letter-spacing:-.01em;max-width:22ch}
+.section-head p{color:var(--muted);max-width:52ch}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:8px;border:1.5px solid transparent;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:transform .15s, background .15s}
+.btn:active{transform:translateY(1px)}
+.btn-signal{background:var(--signal);color:var(--signal-ink)}
+.btn-signal:hover{filter:brightness(1.05)}
+.btn-brand{background:var(--brand);color:var(--brand-ink)}
+.btn-ghost{background:transparent;border-color:currentColor;color:inherit}
+.btn-sm{min-height:38px;padding:0 14px;font-size:.92rem}
+
+/* Prototype ribbon */
+.proto{background:var(--signal);color:var(--signal-ink);font-size:.82rem;text-align:center;padding:6px 16px}
+
+/* Header */
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:20px;min-height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);flex-shrink:0}
+.logo-mark{width:38px;height:38px;display:grid;place-items:center;background:var(--brand);color:var(--brand-ink);font:700 .78rem/1 var(--display);border-radius:6px;clip-path:polygon(0 0,100% 0,100% 72%,72% 100%,0 100%)}
+.logo-text{display:grid;line-height:1.15}
+.logo-text b{font:700 .95rem var(--display)}
+.logo-text span{font-size:.75rem;color:var(--muted)}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{padding:8px 12px;border-radius:6px;color:var(--ink);text-decoration:none;font-weight:500;font-size:.95rem}
+.nav a:hover{background:var(--brand-soft)}
+.hdr-tools{display:flex;align-items:center;gap:12px}
+.hdr-phone{display:grid;line-height:1.2;text-align:right;font-variant-numeric:tabular-nums}
+.hdr-phone b{font-weight:600;white-space:nowrap}
+.hdr-phone span{font-size:.75rem;color:var(--muted)}
+.icon-btn{width:42px;height:42px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink)}
+.icon-btn[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.burger{display:none}
+.nav a,.hdr-phone span{white-space:nowrap}
+@media (max-width:1240px){.hdr-phone{display:none}}
+@media (max-width:1020px){
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--line);padding:8px 20px 16px}
+  .nav.open{display:flex}
+  .burger{display:grid}
+  .hdr-phone{display:none}
+  .hdr-tools{margin-left:auto}
+}
+@media (max-width:520px){ .hdr-tools .btn{display:none} .logo-text span{display:none} }
+
+/* Hero */
+.hero{background:var(--hero);color:var(--hero-ink);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(-45deg,var(--signal) 0 14px,var(--hero) 14px 28px);opacity:.9}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:center;padding-block:64px 80px}
+.hero .eyebrow{color:var(--hero-muted)}
+.hero h1{font:700 clamp(1.45rem,4.2vw,3.1rem)/1.1 var(--display);hyphens:auto;overflow-wrap:break-word;letter-spacing:-.02em;margin-block:14px 18px}
+.hero h1 em{font-style:normal;color:var(--signal)}
+.hero-lead{color:var(--hero-muted);font-size:1.08rem;max-width:54ch}
+.search{margin-top:28px;display:flex;gap:8px;background:var(--surface);border-radius:10px;padding:6px;max-width:580px}
+.search input{flex:1;min-width:0;border:0;background:transparent;padding:0 12px;font-size:1rem;color:var(--ink)}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{outline:none}
+.search:focus-within{box-shadow:0 0 0 3px var(--signal)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{border:1px solid color-mix(in srgb,var(--hero-ink) 30%,transparent);background:transparent;color:var(--hero-ink);border-radius:999px;padding:5px 12px;font-size:.85rem;cursor:pointer}
+.chip:hover{background:color-mix(in srgb,var(--hero-ink) 12%,transparent)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+
+/* Sample certificate */
+.cert{justify-self:center;width:100%;max-width:400px;background:var(--paper);color:var(--paper-ink);border-radius:6px;padding:22px 22px 18px;box-shadow:0 30px 60px -20px rgba(0,0,0,.55);transform:rotate(2.2deg);position:relative;font-size:.8rem}
+.cert::before{content:"ОБРАЗЕЦ";position:absolute;inset:0;display:grid;place-items:center;font:700 3.2rem var(--display);color:rgba(200,40,40,.10);transform:rotate(-24deg);pointer-events:none}
+.cert-top{display:flex;justify-content:space-between;align-items:start;gap:12px;border-bottom:1px solid rgba(0,0,0,.18);padding-bottom:10px;margin-bottom:12px}
+.cert-top b{font:700 .95rem var(--display);letter-spacing:.04em}
+.cert-top .mono{color:#7a6c4a}
+.cert-title{font-weight:600;font-size:.86rem;margin-bottom:12px;line-height:1.35}
+.cert dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0}
+.cert dt{color:#6d6556}
+.cert dd{margin:0;font-weight:600;border-bottom:1px dotted rgba(0,0,0,.3)}
+.cert-foot{display:flex;justify-content:space-between;align-items:end;margin-top:16px}
+.stamp{width:78px;height:78px;border:2.5px solid var(--stamp);border-radius:50%;display:grid;place-items:center;color:var(--stamp);font:700 .7rem/1.1 var(--display);text-align:center;transform:rotate(-14deg);opacity:.85;box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5.5px var(--stamp)}
+.sign{font-family:var(--mono);color:#6d6556;font-size:.7rem}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-block:40px 64px}.cert{max-width:340px;transform:rotate(1.5deg)}}
+
+/* Facts strip */
+.facts{background:var(--surface);border-bottom:1px solid var(--line)}
+.facts ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.facts li{padding:22px 20px;border-left:1px solid var(--line);display:grid;gap:4px}
+.facts li:first-child{border-left:0;padding-left:0}
+.facts b{font-weight:600}
+.facts span{color:var(--muted);font-size:.9rem}
+@media (max-width:900px){.facts ul{grid-template-columns:repeat(2,minmax(0,1fr))}.facts li{border-left:0;padding-inline:0 12px;border-top:1px solid var(--line)}.facts li:nth-child(-n+2){border-top:0}}
+@media (max-width:480px){.facts ul{grid-template-columns:1fr}.facts li:nth-child(2){border-top:1px solid var(--line)}}
+
+/* Catalog */
+.cats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:20px}
+.cat{display:grid;gap:10px;align-content:start;text-align:left;padding:16px 14px;border-radius:var(--r);border:1.5px solid var(--line);background:var(--surface);cursor:pointer;transition:border-color .15s,background .15s}
+.cat:hover{border-color:var(--brand)}
+.cat[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft)}
+.cat svg{width:28px;height:28px;color:var(--brand)}
+.cat b{font-weight:600;font-size:.92rem;line-height:1.25}
+.cat small{color:var(--muted);font-variant-numeric:tabular-nums}
+@media (max-width:1020px){.cats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.cats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:20px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;padding:3px;background:var(--surface)}
+.seg button{border:0;background:transparent;padding:7px 14px;border-radius:6px;cursor:pointer;font-weight:500;font-size:.92rem;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink)}
+.field-search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:0 12px;min-height:42px;flex:1;max-width:380px;min-width:220px}
+.field-search input{border:0;background:transparent;flex:1;min-width:0;padding:8px 0}
+.field-search input:focus{outline:none}
+.field-search:focus-within{border-color:var(--brand)}
+.result-count{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.card{display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);cursor:pointer;text-align:left;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--brand);transform:translateY(-2px)}
+.card .eyebrow{font-size:.7rem}
+.card h3{font-size:1.05rem;font-weight:600;line-height:1.3}
+.card p{color:var(--muted);font-size:.92rem;flex:1}
+.codes{display:flex;flex-wrap:wrap;gap:6px}
+.code{font-family:var(--mono);font-size:.74rem;padding:2px 7px;border-radius:4px;background:var(--brand-soft);color:var(--brand)}
+.card-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--line)}
+.fmt{display:flex;gap:6px;flex-wrap:wrap}
+.pill{font-size:.75rem;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.pill.remote{border-color:var(--ok);color:var(--ok)}
+.more{font-size:.88rem;font-weight:600;color:var(--brand);white-space:nowrap}
+.empty{padding:40px 24px;text-align:center;border:1.5px dashed var(--line);border-radius:var(--r);color:var(--muted)}
+.empty b{display:block;color:var(--ink);margin-bottom:6px}
+
+/* Reasons */
+.reasons{background:var(--surface);border-block:1px solid var(--line)}
+.reason-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 40px;list-style:none;margin:0;padding:0}
+.reason-list li{display:grid;gap:8px;align-content:start;padding-top:16px;border-top:3px solid var(--brand)}
+.reason-list b{font-size:1.05rem;font-weight:600}
+.reason-list p{color:var(--muted);font-size:.95rem}
+@media (max-width:900px){.reason-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.reason-list{grid-template-columns:1fr}}
+
+/* Enquiry */
+.enquiry{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:start}
+.enquiry-copy{display:grid;gap:16px}
+.enquiry-copy h2{font:700 clamp(1.5rem,3vw,2.1rem)/1.15 var(--display)}
+.enquiry-copy p{color:var(--muted)}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.checks li{display:flex;gap:10px;align-items:start}
+.checks svg{flex-shrink:0;margin-top:3px;color:var(--ok)}
+.note{background:var(--brand-soft);border-radius:8px;padding:14px 16px;font-size:.95rem}
+.note b{color:var(--brand)}
+form.card-form{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;display:grid;gap:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fld{display:grid;gap:6px;min-width:0}
+.fld label{font-size:.86rem;font-weight:600}
+.fld input,.fld select,.fld textarea{width:100%;min-height:46px;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:10px 12px}
+.fld textarea{min-height:84px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.fld .err{color:#C2362B;font-size:.82rem}
+.who{display:flex}
+.who .seg{width:100%}
+.who .seg button{flex:1}
+.consent{font-size:.82rem;color:var(--muted)}
+.success{text-align:center;display:grid;gap:12px;justify-items:center;padding:24px 8px}
+.success .tick{width:56px;height:56px;border-radius:50%;background:var(--ok);color:var(--surface);display:grid;place-items:center}
+.success h3{font:700 1.3rem var(--display)}
+.success p{color:var(--muted);max-width:40ch}
+@media (max-width:900px){.enquiry{grid-template-columns:1fr}}
+@media (max-width:560px){.row{grid-template-columns:1fr}form.card-form{padding:20px}}
+
+/* Branches */
+.branches{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.branch{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:16px;align-content:start}
+.branch h3{font:700 1.2rem var(--display)}
+.branch .addr{font-size:1.02rem}
+.branch .addr small{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+.contact-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.contact-list li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.contact-list .lbl{color:var(--muted);font-size:.86rem}
+.contact-list .val{font-weight:600;font-variant-numeric:tabular-nums;user-select:all}
+.copy{border:1px solid var(--line);background:transparent;border-radius:6px;padding:4px 10px;font-size:.8rem;cursor:pointer;color:var(--muted)}
+.copy.done{color:var(--ok);border-color:var(--ok)}
+.hours{display:flex;gap:8px;align-items:center;font-size:.92rem;color:var(--muted)}
+.hours .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.hours .dot.open{background:var(--ok)}
+.branch-actions{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:820px){.branches{grid-template-columns:1fr}}
+
+/* Shop banner */
+.shop{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;padding:24px 28px;border-radius:14px;border:1.5px dashed var(--brand);margin-top:40px}
+.shop p{max-width:62ch}
+.shop b{display:block;margin-bottom:4px}
+
+/* Footer */
+.ftr{background:var(--hero);color:var(--hero-muted);padding-block:48px 32px;font-size:.92rem}
+.ftr-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.ftr h4{margin:0 0 12px;color:var(--hero-ink);font-size:.95rem;font-weight:600}
+.ftr ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ftr a{color:var(--hero-muted);text-decoration:none}
+.ftr a:hover{color:var(--hero-ink);text-decoration:underline}
+.ftr-bottom{margin-top:36px;padding-top:20px;border-top:1px solid color-mix(in srgb,var(--hero-ink) 18%,transparent);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.82rem}
+@media (max-width:820px){.ftr-grid{grid-template-columns:1fr}}
+
+/* Dialog */
+dialog{border:0;border-radius:16px;padding:0;max-width:620px;width:calc(100% - 32px);background:var(--surface);color:var(--ink);box-shadow:0 40px 80px -20px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(6,18,32,.6)}
+.dlg-head{padding:24px 24px 0;display:flex;justify-content:space-between;gap:16px;align-items:start}
+.dlg-head h3{font:700 1.3rem/1.2 var(--display);margin-top:6px}
+.dlg-body{padding:16px 24px 24px;display:grid;gap:16px}
+.dlg-body p{color:var(--muted)}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0;padding:16px;border-radius:10px;background:var(--bg)}
+.spec dt{color:var(--muted);font-size:.88rem}
+.spec dd{margin:0;font-weight:500}
+.dlg-actions{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:480px){.spec{grid-template-columns:1fr;gap:2px}.spec dd{margin-bottom:8px}}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:10px 18px;border-radius:8px;font-size:.92rem;z-index:50}
+</style>
+</head>
+<body>
+
+<div class="proto">Прототип новой главной страницы. Сроки и форматы курсов в карточках примерные, их нужно сверить с учебным центром.</div>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Учебный центр ИКЦ, на главную">
+      <span class="logo-mark">ИКЦ</span>
+      <span class="logo-text"><b>Учебный центр ИКЦ</b><span>Дополнительное профобразование</span></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Основное меню">
+      <a href="#catalog">Курсы</a>
+      <a href="#companies">Организациям</a>
+      <a href="#why">О центре</a>
+      <a href="#remote">Дистанционно</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="hdr-tools">
+      <div class="hdr-phone"><b>(4212) 41-40-90</b><span>Хабаровск, 8:30–17:30</span></div>
+      <button class="icon-btn" id="a11yBtn" aria-pressed="false" title="Версия для слабовидящих" aria-label="Версия для слабовидящих">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+      <a class="btn btn-signal btn-sm" href="#enquiry">Оставить заявку</a>
+      <button class="icon-btn burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Меню">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Хабаровск · Комсомольск-на-Амуре · дистанционно по всей России</p>
+      <h1>Обучение и аттестация по охране труда, промбезопасности и <em>рабочим профессиям</em></h1>
+      <p class="hero-lead">Готовим к экзаменам Ростехнадзора, Гостехнадзора и ГАДН, вносим сведения в реестр Минтруда. Учим отдельных специалистов и целые предприятия.</p>
+      <form class="search" id="heroSearch" role="search">
+        <label for="heroQ" hidden>Найти курс</label>
+        <input id="heroQ" type="search" placeholder="Стропальщик, Б.1, электробезопасность…" autocomplete="off">
+        <button class="btn btn-brand" type="submit">Найти курс</button>
+      </form>
+      <div class="chips" aria-label="Популярные запросы">
+        <button class="chip" data-q="Охрана труда">Охрана труда</button>
+        <button class="chip" data-q="Электробезопасность">Электробезопасность</button>
+        <button class="chip" data-q="высоте">Работы на высоте</button>
+        <button class="chip" data-q="Стропальщик">Стропальщик</button>
+        <button class="chip" data-q="ДОПОГ">ДОПОГ</button>
+      </div>
+    </div>
+
+    <div class="cert" aria-label="Образец удостоверения">
+      <div class="cert-top">
+        <b>УДОСТОВЕРЕНИЕ</b>
+        <span class="mono">№ 0417-26</span>
+      </div>
+      <p class="cert-title">о проверке знаний правил работы в электроустановках</p>
+      <dl>
+        <dt>Ф. И. О.</dt><dd>Петров Иван Сергеевич</dd>
+        <dt>Должность</dt><dd>Электромонтёр</dd>
+        <dt>Группа</dt><dd><span class="mono">IV</span> до и выше 1000 В</dd>
+        <dt>Проверка</dt><dd><span class="mono">14.10.2026</span></dd>
+        <dt>Следующая</dt><dd><span class="mono">14.10.2027</span></dd>
+      </dl>
+      <div class="cert-foot">
+        <span class="sign">Председатель комиссии ________</span>
+        <span class="stamp">УЦ<br>ИКЦ<br>Хабаровск</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="facts" aria-label="Коротко о центре">
+  <div class="wrap">
+    <ul>
+      <li><b>Экзамены у надзорных органов</b><span>Гостехнадзор, ГАДН, Ростехнадзор</span></li>
+      <li><b>Реестр Минтруда России</b><span>Сведения об обучении вносим сами</span></li>
+      <li><b>Практика, а не только лекции</b><span>Альпинистская горка, манекены, сварочные посты</span></li>
+      <li id="remote"><b>Дистанционный формат</b><span>Учитесь с компьютера или телефона</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="catalog">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Каталог курсов</h2>
+      <p>Выберите направление или найдите курс по названию профессии, области аттестации или группе допуска.</p>
+    </div>
+
+    <div class="cats" id="cats" role="group" aria-label="Направления"></div>
+
+    <div class="toolbar">
+      <label class="field-search" for="q">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Поиск по курсам" autocomplete="off">
+      </label>
+      <div class="seg" role="group" aria-label="Формат обучения" id="fmtSeg">
+        <button type="button" data-fmt="all" aria-pressed="true">Все форматы</button>
+        <button type="button" data-fmt="office" aria-pressed="false">Очно</button>
+        <button type="button" data-fmt="remote" aria-pressed="false">Дистанционно</button>
+      </div>
+      <span class="result-count" id="count" aria-live="polite"></span>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <b>Такого курса нет в каталоге</b>
+      Оставьте заявку, и методист подберёт программу или составит индивидуальную под вашу задачу.
+      <div style="margin-top:16px"><a class="btn btn-brand btn-sm" href="#enquiry">Оставить заявку</a></div>
+    </div>
+
+    <div class="shop">
+      <p><b>Памятки и инструкции по охране труда</b>Магазин технической литературы «Российская академия знаний» печатает иллюстрированные памятки под заказ или делает электронную версию для телефонов сотрудников.</p>
+      <a class="btn btn-ghost btn-sm" href="#enquiry">Заказать литературу</a>
+    </div>
+  </div>
+</section>
+
+<section class="section reasons" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Почему предприятия учатся у нас</h2>
+      <p>Преподаватели подготовлены на федеральном уровне, практику ведут действующие специалисты.</p>
+    </div>
+    <ul class="reason-list">
+      <li><b>Высотники учатся у промальпинистов</b><p>Практика на альпинистской горке, вязание узлов, план эвакуации с высоты и разработка ППР.</p></li>
+      <li><b>Первая помощь по стандарту EFR</b><p>Инструкторы международного класса, методика Минздрава, рекомендации Красного Креста и МЧС, отработка на манекене.</p></li>
+      <li><b>ОЗП по требованиям Минтруда</b><p>Работа с газоанализаторами всех типов, эвакуация и спасение пострадавших из замкнутых пространств.</p></li>
+      <li><b>Сварка по международным стандартам</b><p>Ручная дуговая MMA, аргонодуговая TIG, полуавтомат MIG и MAG. Готовим и контролёров сварочного производства.</p></li>
+      <li><b>Защитное вождение на ваших автомобилях</b><p>70 правил защитного вождения, разбор аварийных ситуаций, психологическое тестирование водителей.</p></li>
+      <li><b>Программы под заказчика</b><p>Кроме типовых программ, составляем индивидуальные под ваше производство и графики смен.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="companies">
+  <div class="wrap enquiry" id="enquiry">
+    <div class="enquiry-copy">
+      <p class="eyebrow">Заявка на обучение</p>
+      <h2>Пришлите задачу, мы подберём программы и посчитаем стоимость</h2>
+      <p>Методист перезвонит в рабочее время, уточнит профессии и сроки и пришлёт договор и расписание.</p>
+      <ul class="checks">
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>Обучение целых бригад, в том числе выездное</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>Напоминаем о сроках повторной аттестации</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>Закрывающие документы для бухгалтерии</li>
+      </ul>
+      <p class="note"><b>Постоянным клиентам</b> действуют специальные условия.</p>
+    </div>
+
+    <form class="card-form" id="form" novalidate>
+      <div class="who">
+        <div class="seg" role="group" aria-label="Кто обучается" id="whoSeg">
+          <button type="button" data-who="org" aria-pressed="true">Организация</button>
+          <button type="button" data-who="person" aria-pressed="false">Частное лицо</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="fld"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" placeholder="Как к вам обращаться"><span class="err" hidden>Укажите имя</span></div>
+        <div class="fld"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__"><span class="err" hidden>Укажите телефон, чтобы методист мог перезвонить</span></div>
+      </div>
+      <div class="row" id="orgRow">
+        <div class="fld"><label for="f-company">Организация</label><input id="f-company" name="company" autocomplete="organization" placeholder="ООО «…»"></div>
+        <div class="fld"><label for="f-people">Сколько человек обучить</label><input id="f-people" name="people" type="number" min="1" inputmode="numeric" placeholder="Например, 12"></div>
+      </div>
+      <div class="row">
+        <div class="fld"><label for="f-course">Курс</label><select id="f-course" name="course"><option value="">Не знаю, нужна консультация</option></select></div>
+        <div class="fld"><label for="f-city">Где учиться</label>
+          <select id="f-city" name="city"><option>Хабаровск</option><option>Комсомольск-на-Амуре</option><option>Дистанционно</option><option>Выезд на предприятие</option></select>
+        </div>
+      </div>
+      <div class="fld"><label for="f-msg">Комментарий</label><textarea id="f-msg" name="msg" placeholder="Профессии, сроки, удобное время для звонка"></textarea></div>
+      <button class="btn btn-signal" type="submit">Отправить заявку</button>
+      <p class="consent">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+    </form>
+    <div class="card-form success" id="success" hidden>
+      <div class="tick"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></div>
+      <h3>Заявка принята</h3>
+      <p id="successText">Методист перезвонит в ближайшее рабочее время.</p>
+      <p class="consent">В прототипе заявка никуда не отправляется.</p>
+      <button class="btn btn-ghost btn-sm" type="button" id="again">Отправить ещё одну</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacts" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Два учебных центра</h2>
+      <p>Приезжайте на занятия или консультацию. Документы можно подать и онлайн.</p>
+    </div>
+    <div class="branches">
+      <article class="branch">
+        <h3>Хабаровск</h3>
+        <p class="addr">ул. Карла Маркса, 96А, офис 321<small>Бизнес-центр «Новый Квартал», остановка «Павленко»</small></p>
+        <p class="hours" data-open="8.5" data-close="17.5" data-lunch="13"><span class="dot"></span><span class="hours-text">Пн–Пт 8:30–17:30, обед 13:00–14:00</span></p>
+        <ul class="contact-list">
+          <li><span class="lbl">Телефон</span><span class="val">(4212) 41-40-90</span><button class="copy" data-copy="+7 (4212) 41-40-90">Скопировать</button></li>
+          <li><span class="lbl">E-mail</span><span class="val">anodpo@ikcgroup.ru</span><button class="copy" data-copy="anodpo@ikcgroup.ru">Скопировать</button></li>
+        </ul>
+        <div class="branch-actions">
+          <a class="btn btn-brand btn-sm" href="https://yandex.ru/maps/?text=%D0%A5%D0%B0%D0%B1%D0%B0%D1%80%D0%BE%D0%B2%D1%81%D0%BA%2C%20%D1%83%D0%BB.%20%D0%9A%D0%B0%D1%80%D0%BB%D0%B0%20%D0%9C%D0%B0%D1%80%D0%BA%D1%81%D0%B0%2C%2096%D0%90" target="_blank" rel="noopener">Открыть на карте</a>
+          <a class="btn btn-ghost btn-sm" href="#enquiry" data-city="Хабаровск">Заявка в Хабаровск</a>
+        </div>
+      </article>
+      <article class="branch">
+        <h3>Комсомольск-на-Амуре</h3>
+        <p class="addr">ул. Пирогова, 1, этаж 2, офис 1<small>Методисты и бухгалтерия на месте</small></p>
+        <p class="hours" data-open="8" data-close="17" data-lunch="12"><span class="dot"></span><span class="hours-text">Пн–Пт 8:00–17:00, обед 12:00–13:00</span></p>
+        <ul class="contact-list">
+          <li><span class="lbl">Методисты</span><span class="val">(4217) 54-92-41</span><button class="copy" data-copy="+7 (4217) 54-92-41">Скопировать</button></li>
+          <li><span class="lbl">Мобильный</span><span class="val">+7 968 171-20-01</span><button class="copy" data-copy="+7 968 171-20-01">Скопировать</button></li>
+          <li><span class="lbl">Бухгалтерия</span><span class="val">(4217) 24-10-58</span><button class="copy" data-copy="+7 (4217) 24-10-58">Скопировать</button></li>
+          <li><span class="lbl">E-mail</span><span class="val">nudpo@ikcgroup.ru</span><button class="copy" data-copy="nudpo@ikcgroup.ru">Скопировать</button></li>
+        </ul>
+        <div class="branch-actions">
+          <a class="btn btn-brand btn-sm" href="https://yandex.ru/maps/?text=%D0%9A%D0%BE%D0%BC%D1%81%D0%BE%D0%BC%D0%BE%D0%BB%D1%8C%D1%81%D0%BA-%D0%BD%D0%B0-%D0%90%D0%BC%D1%83%D1%80%D0%B5%2C%20%D1%83%D0%BB.%20%D0%9F%D0%B8%D1%80%D0%BE%D0%B3%D0%BE%D0%B2%D0%B0%2C%201" target="_blank" rel="noopener">Открыть на карте</a>
+          <a class="btn btn-ghost btn-sm" href="#enquiry" data-city="Комсомольск-на-Амуре">Заявка в Комсомольск</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-grid">
+      <div>
+        <h4>НУ ДПО ИКЦ</h4>
+        <ul>
+          <li><a href="#">Сведения об образовательной организации</a></li>
+          <li><a href="#">Структура и органы управления</a></li>
+          <li><a href="#">Документы</a></li>
+          <li><a href="#">Учебные программы</a></li>
+          <li><a href="#">Платные образовательные услуги</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>АНО ДПО ИКЦ</h4>
+        <ul>
+          <li><a href="#">Сведения об образовательной организации</a></li>
+          <li><a href="#">Структура и органы управления</a></li>
+          <li><a href="#">Документы</a></li>
+          <li><a href="#">Учебные программы</a></li>
+          <li><a href="#">Платные образовательные услуги</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Полезные ссылки</h4>
+        <ul>
+          <li><a href="#">Министерство науки и высшего образования РФ</a></li>
+          <li><a href="#">Министерство просвещения РФ</a></li>
+          <li><a href="#">Министерство образования Хабаровского края</a></li>
+          <li><a href="#remote">Дистанционное обучение</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr-bottom">
+      <span>Учебный центр группы компаний ИКЦ</span>
+      <span>Прототип редизайна, октябрь 2026</span>
+    </div>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg-head">
+    <div><p class="eyebrow" id="dlgCat"></p><h3 id="dlgTitle"></h3></div>
+    <button class="icon-btn" id="dlgClose" aria-label="Закрыть"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="dlg-body">
+    <p id="dlgText"></p>
+    <div class="codes" id="dlgCodes"></div>
+    <dl class="spec">
+      <dt>Формат</dt><dd id="dlgFmt"></dd>
+      <dt>Документ</dt><dd id="dlgDoc"></dd>
+      <dt>Экзамен</dt><dd id="dlgExam"></dd>
+    </dl>
+    <div class="dlg-actions">
+      <button class="btn btn-signal" id="dlgEnroll">Записаться на курс</button>
+      <button class="btn btn-ghost" id="dlgCancel">Вернуться к каталогу</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const ICONS = {
+  ot:'<path d="M3 17h18M5 17a7 7 0 0 1 14 0M12 6v4M8.5 8l1.5 3M15.5 8 14 11"/>',
+  prom:'<path d="M6 21V4h13M6 7l13-3M16 4v7M14 11h4v3h-4zM3 21h6"/>',
+  energy:'<path d="M13 3 5 14h6l-1 7 8-11h-6z"/>',
+  fire:'<path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5 1-8.5z"/>',
+  transport:'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+  work:'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>'
+};
+const CATS = [
+  {id:'all', name:'Все курсы'},
+  {id:'ot', name:'Охрана труда и первая помощь'},
+  {id:'prom', name:'Промбезопасность и Ростехнадзор'},
+  {id:'energy', name:'Электро- и теплоэнергетика'},
+  {id:'fire', name:'Пожарная безопасность, ГО и ЧС'},
+  {id:'transport', name:'Транспорт и опасные грузы'},
+  {id:'work', name:'Рабочие профессии'}
+];
+// formats: o = очно, r = дистанционно
+const COURSES = [
+  {c:'ot', t:'Охрана труда', d:'Обучение по типовым и индивидуальным программам, профпереподготовка специалистов по охране труда.', codes:['Программы А, Б, В'], f:'or', doc:'Удостоверение, протокол, запись в реестре Минтруда', ex:'Комиссия учебного центра, сведения вносятся в реестр Минтруда'},
+  {c:'ot', t:'Первая помощь пострадавшим', d:'Инструкторы EFR, методика Минздрава, рекомендации Красного Креста и МЧС. Отработка навыков на манекене.', codes:['EFR'], f:'o', doc:'Удостоверение', ex:'Практический зачёт на манекене'},
+  {c:'ot', t:'Работы на высоте', d:'Занятия ведут промышленные альпинисты, практика на альпинистской горке. Вязание узлов, ППР, план эвакуации с высоты.', codes:['1 группа','2 группа','3 группа'], f:'o', doc:'Удостоверение о допуске к работам на высоте', ex:'Комиссия учебного центра, практика на горке'},
+  {c:'ot', t:'Работы в ограниченных и замкнутых пространствах', d:'По требованиям Минтруда. Отбор проб газовоздушной среды, эвакуация и спасение пострадавших в ОЗП.', codes:['ОЗП'], f:'o', doc:'Удостоверение', ex:'Комиссия учебного центра'},
+  {c:'ot', t:'Экологическая безопасность', d:'Повышение квалификации по типовым программам и программам заказчика.', codes:[], f:'or', doc:'Удостоверение о повышении квалификации', ex:'Итоговое тестирование'},
+  {c:'prom', t:'Промышленная безопасность', d:'Предаттестационная подготовка, профпереподготовка и повышение квалификации раз в 5 лет.', codes:['А.1','Б.1','Б.2','Б.3','Б.7','Б.8','Б.9','…Б.12'], f:'or', doc:'Удостоверение, подготовка к аттестации', ex:'Аттестация в Ростехнадзоре'},
+  {c:'prom', t:'Энергобезопасность', d:'Подготовка к аттестации, профпереподготовка и повышение квалификации.', codes:['Г1','Г2','Г3'], f:'or', doc:'Удостоверение', ex:'Аттестация в Ростехнадзоре'},
+  {c:'prom', t:'Лифты и подъёмники', d:'Подготовка персонала, обслуживающего лифты, подъёмные платформы и эскалаторы.', codes:['Лифтёр','Электромеханик'], f:'or', doc:'Удостоверение', ex:'Комиссия учебного центра'},
+  {c:'prom', t:'Аттракционы', d:'Обучение персонала, эксплуатирующего аттракционы.', codes:[], f:'or', doc:'Удостоверение', ex:'Комиссия учебного центра'},
+  {c:'energy', t:'Электробезопасность', d:'Подготовка по тестовым заданиям Ростехнадзора и повышение квалификации электротехнического персонала раз в 5 лет.', codes:['II','III','IV','V группа'], f:'or', doc:'Удостоверение о проверке знаний', ex:'Комиссия Ростехнадзора или комиссия организации'},
+  {c:'energy', t:'Теплоэнергетика', d:'Предаттестационная подготовка, профпереподготовка и повышение квалификации.', codes:[], f:'or', doc:'Удостоверение', ex:'Аттестация в Ростехнадзоре'},
+  {c:'energy', t:'Электроэнергетика', d:'Подготовка специалистов электроэнергетических объектов.', codes:[], f:'or', doc:'Удостоверение', ex:'Аттестация в Ростехнадзоре'},
+  {c:'fire', t:'Пожарная безопасность', d:'Программы повышения квалификации МЧС России, в том числе для лицензируемых видов деятельности.', codes:['МЧС'], f:'or', doc:'Удостоверение о повышении квалификации', ex:'Итоговая аттестация'},
+  {c:'fire', t:'ГО и ЧС', d:'Подготовка должностных лиц и работников в области гражданской обороны и защиты от чрезвычайных ситуаций.', codes:[], f:'or', doc:'Удостоверение', ex:'Итоговое тестирование'},
+  {c:'fire', t:'Антитеррористическая защищённость объектов', d:'Занятия по 33 видам объектов различной ведомственной принадлежности.', codes:['33 вида объектов'], f:'or', doc:'Удостоверение о повышении квалификации', ex:'Итоговое тестирование'},
+  {c:'transport', t:'Перевозка опасных грузов автотранспортом', d:'Занятия ведут консультанты ДОПОГ по иллюстрированным лекционным материалам.', codes:['ДОПОГ'], f:'o', doc:'Свидетельство ДОПОГ', ex:'Комиссия Госавтодорнадзора'},
+  {c:'transport', t:'Перевозка опасных грузов ж/д транспортом', d:'Повышение квалификации, включая погрузочно-разгрузочные работы с опасными грузами.', codes:[], f:'or', doc:'Удостоверение', ex:'Итоговая аттестация'},
+  {c:'transport', t:'Безопасность дорожного движения', d:'Подготовка специалистов по БДД, контролёров технического состояния и водителей.', codes:['БДД'], f:'or', doc:'Удостоверение', ex:'Аттестация в Госавтодорнадзоре'},
+  {c:'transport', t:'Защитное вождение', d:'70 правил защитного вождения, разбор аварийных ситуаций, психологическое тестирование, практика на автомобилях заказчика.', codes:[], f:'o', doc:'Сертификат', ex:'Практическое занятие'},
+  {c:'transport', t:'Водители самоходной техники', d:'Квадроциклы, снегоходы, погрузчики, краны на спецшасси, бульдозеры, экскаваторы, катки, грейдеры, буровые установки.', codes:['Гостехнадзор'], f:'o', doc:'Удостоверение тракториста-машиниста', ex:'Экзамен в Гостехнадзоре'},
+  {c:'work', t:'Рабочие профессии подъёмных механизмов', d:'Стропальщики, машинисты кранов всех видов, рабочие люлек, машинисты подъёмников и автовышек.', codes:['Стропальщик','Машинист крана'], f:'o', doc:'Свидетельство о профессии, удостоверение', ex:'Квалификационный экзамен'},
+  {c:'work', t:'Специалисты сварочного производства', d:'Электро- и газосварщики, резчики, контролёры сварочного производства по международным стандартам.', codes:['MMA','TIG','MIG','MAG'], f:'o', doc:'Свидетельство о профессии', ex:'Квалификационный экзамен, пробные сварные соединения'},
+  {c:'work', t:'Рабочие профессии котлонадзора', d:'Машинисты котлов, компрессоров, холодильных установок, операторы сосудов и трубопроводов.', codes:['Котлонадзор'], f:'o', doc:'Свидетельство о профессии', ex:'Квалификационный экзамен'},
+  {c:'work', t:'Рабочие профессии в строительстве', d:'Машинисты дизельных электростанций, монтажники трубопроводов и другие профессии.', codes:[], f:'o', doc:'Свидетельство о профессии', ex:'Квалификационный экзамен'},
+  {c:'work', t:'Рабочие профессии нефтепереработки', d:'Операторы АЗС и товарные операторы, машинисты оборудования нефтебаз, сливщики-разливщики.', codes:[], f:'o', doc:'Свидетельство о профессии', ex:'Квалификационный экзамен'}
+];
+const catName = id => CATS.find(c=>c.id===id).name;
+const fmtLabel = f => [f.includes('o')?'Очно':null, f.includes('r')?'Дистанционно':null].filter(Boolean);
+const plural = (n,a,b,c) => { const m10=n%10, m100=n%100; return m10===1&&m100!==11?a:(m10>=2&&m10<=4&&(m100<10||m100>=20)?b:c); };
+const esc = s => s.replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+
+const state = {cat:'all', fmt:'all', q:''};
+const $ = s => document.querySelector(s);
+
+// Categories
+$('#cats').innerHTML = CATS.filter(c=>c.id!=='all').map(c => {
+  const n = COURSES.filter(x=>x.c===c.id).length;
+  return `<button type="button" class="cat" data-cat="${c.id}" aria-pressed="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[c.id]}</svg>
+    <b>${c.name}</b><small>${n} ${plural(n,'курс','курса','курсов')}</small></button>`;
+}).join('');
+$('#cats').addEventListener('click', e => {
+  const b = e.target.closest('.cat'); if(!b) return;
+  state.cat = state.cat === b.dataset.cat ? 'all' : b.dataset.cat;
+  render();
+});
+
+// Format filter
+$('#fmtSeg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  state.fmt = b.dataset.fmt; render();
+});
+$('#q').addEventListener('input', e => { state.q = e.target.value; render(); });
+
+function matches(x){
+  if(state.cat!=='all' && x.c!==state.cat) return false;
+  if(state.fmt==='office' && !x.f.includes('o')) return false;
+  if(state.fmt==='remote' && !x.f.includes('r')) return false;
+  const q = state.q.trim().toLowerCase();
+  if(q){
+    const hay = (x.t+' '+x.d+' '+x.codes.join(' ')+' '+catName(x.c)).toLowerCase();
+    return q.split(/\s+/).every(w => hay.includes(w));
+  }
+  return true;
+}
+function render(){
+  document.querySelectorAll('.cat').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat===state.cat));
+  document.querySelectorAll('#fmtSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.fmt===state.fmt));
+  const list = COURSES.map((x,i)=>({...x,i})).filter(matches);
+  $('#grid').innerHTML = list.map(x => `
+    <button type="button" class="card" data-i="${x.i}">
+      <span class="eyebrow">${esc(catName(x.c))}</span>
+      <h3>${esc(x.t)}</h3>
+      <p>${esc(x.d)}</p>
+      ${x.codes.length?`<span class="codes">${x.codes.map(k=>`<span class="code">${esc(k)}</span>`).join('')}</span>`:''}
+      <span class="card-foot">
+        <span class="fmt">${fmtLabel(x.f).map(l=>`<span class="pill ${l==='Дистанционно'?'remote':''}">${l}</span>`).join('')}</span>
+        <span class="more">Подробнее →</span>
+      </span>
+    </button>`).join('');
+  $('#empty').hidden = list.length > 0;
+  $('#count').textContent = `${list.length} ${plural(list.length,'курс','курса','курсов')}`;
+}
+
+// Hero search and chips
+function searchFor(q){
+  state.q = q; state.cat = 'all'; $('#q').value = q; render();
+  document.getElementById('catalog').scrollIntoView();
+}
+$('#heroSearch').addEventListener('submit', e => { e.preventDefault(); searchFor($('#heroQ').value); });
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => searchFor(c.dataset.q)));
+
+// Course dialog
+const dlg = $('#dlg'); let current = null;
+$('#grid').addEventListener('click', e => {
+  const card = e.target.closest('.card'); if(!card) return;
+  const x = COURSES[+card.dataset.i]; current = x;
+  $('#dlgCat').textContent = catName(x.c);
+  $('#dlgTitle').textContent = x.t;
+  $('#dlgText').textContent = x.d;
+  $('#dlgCodes').innerHTML = x.codes.map(k=>`<span class="code">${esc(k)}</span>`).join('');
+  $('#dlgFmt').textContent = fmtLabel(x.f).map((l,i)=>i?l.toLowerCase():l).join(' или ');
+  $('#dlgDoc').textContent = x.doc;
+  $('#dlgExam').textContent = x.ex;
+  dlg.showModal();
+});
+const closeDlg = () => dlg.close();
+$('#dlgClose').addEventListener('click', closeDlg);
+$('#dlgCancel').addEventListener('click', closeDlg);
+dlg.addEventListener('click', e => { if(e.target===dlg) closeDlg(); });
+$('#dlgEnroll').addEventListener('click', () => {
+  closeDlg();
+  $('#f-course').value = current.t;
+  if(!current.f.includes('o')) $('#f-city').value = 'Дистанционно';
+  document.getElementById('enquiry').scrollIntoView();
+  setTimeout(()=>$('#f-name').focus({preventScroll:true}), 400);
+});
+
+// Form
+$('#f-course').insertAdjacentHTML('beforeend', COURSES.map(x=>`<option>${esc(x.t)}</option>`).join(''));
+$('#whoSeg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  document.querySelectorAll('#whoSeg button').forEach(x => x.setAttribute('aria-pressed', x===b));
+  $('#orgRow').hidden = b.dataset.who !== 'org';
+});
+document.querySelectorAll('[data-city]').forEach(a => a.addEventListener('click', () => { $('#f-city').value = a.dataset.city; }));
+$('#form').addEventListener('submit', e => {
+  e.preventDefault();
+  let ok = true;
+  [['#f-name', v=>v.trim().length>1], ['#f-phone', v=>v.replace(/\D/g,'').length>=10]].forEach(([sel,test]) => {
+    const inp = $(sel), err = inp.nextElementSibling, good = test(inp.value);
+    err.hidden = good; inp.setAttribute('aria-invalid', !good); if(!good && ok){ inp.focus(); ok = false; }
+  });
+  if(!ok) return;
+  const city = $('#f-city').value;
+  $('#successText').textContent = `${$('#f-name').value.trim()}, спасибо. Методист ${city==='Комсомольск-на-Амуре'?'центра в Комсомольске-на-Амуре':'центра в Хабаровске'} перезвонит в ближайшее рабочее время.`;
+  $('#form').hidden = true; $('#success').hidden = false;
+});
+$('#again').addEventListener('click', () => { $('#form').reset(); $('#orgRow').hidden=false; document.querySelectorAll('#whoSeg button').forEach(x=>x.setAttribute('aria-pressed', x.dataset.who==='org')); $('#success').hidden = true; $('#form').hidden = false; });
+
+// Copy buttons
+let toastT;
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true,1800); }
+document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', () => {
+  const text = b.dataset.copy;
+  const done = () => { b.textContent='Скопировано'; b.classList.add('done'); setTimeout(()=>{b.textContent='Скопировать'; b.classList.remove('done');},1600); };
+  navigator.clipboard?.writeText(text).then(done).catch(() => {
+    const r = document.createRange(); r.selectNodeContents(b.previousElementSibling);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Выделено, нажмите Ctrl+C');
+  }) ?? toast(text);
+}));
+
+// Open / closed status (Khabarovsk time, UTC+10)
+function updateHours(){
+  const now = new Date(Date.now() + 10*3600e3);
+  const day = now.getUTCDay(), h = now.getUTCHours() + now.getUTCMinutes()/60;
+  document.querySelectorAll('.hours').forEach(p => {
+    const o=+p.dataset.open, c=+p.dataset.close, l=+p.dataset.lunch;
+    const work = day>=1 && day<=5 && h>=o && h<c;
+    const lunch = work && h>=l && h<l+1;
+    const dot = p.querySelector('.dot');
+    dot.classList.toggle('open', work && !lunch);
+    p.title = work ? (lunch ? 'Сейчас обед' : 'Сейчас открыто') : 'Сейчас закрыто';
+    dot.setAttribute('aria-label', p.title);
+  });
+}
+updateHours(); setInterval(updateHours, 60000);
+
+// Accessibility mode
+$('#a11yBtn').addEventListener('click', e => {
+  const on = document.documentElement.classList.toggle('a11y');
+  e.currentTarget.setAttribute('aria-pressed', on);
+  toast(on ? 'Включена версия для слабовидящих' : 'Обычная версия');
+});
+
+// Mobile menu
+$('#burger').addEventListener('click', e => {
+  const open = $('#nav').classList.toggle('open');
+  e.currentTarget.setAttribute('aria-expanded', open);
+});
+$('#nav').addEventListener('click', e => { if(e.target.tagName==='A'){ $('#nav').classList.remove('open'); $('#burger').setAttribute('aria-expanded', false); } });
+
+render();
+</script>
+</body>
+</html>
