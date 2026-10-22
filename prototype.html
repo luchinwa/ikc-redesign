@@ -105,8 +105,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .hdr .icon-btn[aria-pressed="true"]{background:var(--hdr-ink);color:var(--hdr)}
 .burger{display:none}
 .nav a,.hdr-phone span{white-space:nowrap}
-@media (max-width:1240px){.hdr-phone{display:none}}
-@media (max-width:1020px){
+@media (max-width:1380px){.hdr-phone{display:none}}
+@media (max-width:1080px){
   .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--hdr);border-bottom:1px solid color-mix(in srgb,var(--hdr-ink) 14%,transparent);padding:8px 20px 16px}
   .nav.open{display:flex}
   .burger{display:grid}
@@ -166,7 +166,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .cat svg{width:28px;height:28px;color:var(--brand)}
 .cat b{font-weight:600;font-size:.92rem;line-height:1.25}
 .cat small{color:var(--muted);font-variant-numeric:tabular-nums}
-@media (max-width:1020px){.cats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:1080px){.cats{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.cats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:20px}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;padding:3px;background:var(--surface)}
@@ -224,6 +224,17 @@ form.card-form{background:var(--surface);border:1px solid var(--line);border-rad
 .who .seg{width:100%}
 .who .seg button{flex:1}
 .consent{font-size:.82rem;color:var(--muted)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.45;cursor:pointer}
+.check input{width:20px;height:20px;margin:1px 0 0;flex-shrink:0;accent-color:var(--brand)}
+.check-wrap{display:grid;gap:6px}
+.check-wrap .err{color:#C2362B;font-size:.82rem}
+.ftr .ftr-main{color:var(--hdr-ink);font-weight:600}
+.ftr .lic{font-size:.82rem;opacity:.85}
+.ftr-legal{display:flex;flex-wrap:wrap;gap:6px 20px}
+.cookie{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:41;max-width:360px;display:grid;gap:12px;padding:16px 18px;border-radius:12px;background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:0 16px 40px -12px rgba(0,0,0,.35);font-size:.88rem;line-height:1.45}
+.cookie .btn{justify-self:start}
+@media (max-width:640px){.cookie{left:16px;right:16px;max-width:none;bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
+
 .success{text-align:center;display:grid;gap:12px;justify-items:center;padding:24px 8px}
 .success .tick{width:56px;height:56px;border-radius:50%;background:var(--ok);color:var(--surface);display:grid;place-items:center}
 .success h3{font:700 1.3rem var(--display)}
@@ -377,6 +388,7 @@ html.a11y .styler{display:none}
       <a href="#why">О центре</a>
       <a href="#remote">Дистанционно</a>
       <a href="#contacts">Контакты</a>
+      <a href="#sveden" title="Сведения об образовательной организации">Сведения об ОО</a>
     </nav>
     <div class="hdr-tools">
       <div class="hdr-phone"><b>(4212) 41-40-90</b><span>Хабаровск, 8:30–17:30</span></div>
@@ -533,8 +545,11 @@ html.a11y .styler{display:none}
         </div>
       </div>
       <div class="fld"><label for="f-msg">Комментарий</label><textarea id="f-msg" name="msg" placeholder="Профессии, сроки, удобное время для звонка"></textarea></div>
+      <div class="check-wrap">
+        <label class="check" for="f-consent"><input type="checkbox" id="f-consent" name="consent"><span>Даю <a href="#sveden">согласие на обработку персональных данных</a>. С <a href="#sveden">политикой обработки персональных данных</a> ознакомлен.</span></label>
+        <span class="err" id="consentErr" hidden>Отметьте согласие, без него заявку отправить нельзя</span>
+      </div>
       <button class="btn btn-signal" type="submit">Отправить заявку</button>
-      <p class="consent">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
     </form>
     <div class="card-form success" id="success" hidden>
       <div class="tick"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></div>
@@ -593,21 +608,21 @@ html.a11y .styler{display:none}
       <div>
         <h4>НУ ДПО ИКЦ</h4>
         <ul>
-          <li><a href="#">Сведения об образовательной организации</a></li>
-          <li><a href="#">Структура и органы управления</a></li>
-          <li><a href="#">Документы</a></li>
-          <li><a href="#">Учебные программы</a></li>
-          <li><a href="#">Платные образовательные услуги</a></li>
+          <li><a class="ftr-main" href="#sveden">Сведения об образовательной организации</a></li>
+          <li><a href="#sveden">Документы</a></li>
+          <li><a href="#sveden">Образование и программы</a></li>
+          <li><a href="#sveden">Платные образовательные услуги</a></li>
+          <li class="lic">Лицензия № ____ от ____ (выписка из реестра лицензий)</li>
         </ul>
       </div>
       <div>
         <h4>АНО ДПО ИКЦ</h4>
         <ul>
-          <li><a href="#">Сведения об образовательной организации</a></li>
-          <li><a href="#">Структура и органы управления</a></li>
-          <li><a href="#">Документы</a></li>
-          <li><a href="#">Учебные программы</a></li>
-          <li><a href="#">Платные образовательные услуги</a></li>
+          <li><a class="ftr-main" href="#sveden">Сведения об образовательной организации</a></li>
+          <li><a href="#sveden">Документы</a></li>
+          <li><a href="#sveden">Образование и программы</a></li>
+          <li><a href="#sveden">Платные образовательные услуги</a></li>
+          <li class="lic">Лицензия № ____ от ____ (выписка из реестра лицензий)</li>
         </ul>
       </div>
       <div>
@@ -621,7 +636,7 @@ html.a11y .styler{display:none}
       </div>
     </div>
     <div class="ftr-bottom">
-      <span>Учебный центр группы компаний ИКЦ</span>
+      <span class="ftr-legal"><a href="#sveden">Политика обработки персональных данных</a><a href="#sveden">Согласие на обработку персональных данных</a></span>
       <span>Прототип редизайна, октябрь 2026</span>
     </div>
   </div>
@@ -653,6 +668,10 @@ html.a11y .styler{display:none}
   <button type="button" data-style="a" aria-pressed="true" title="Сигнальный"><span class="sw sw-a"></span><span>A</span><span class="nm">Сигнальный</span></button>
   <button type="button" data-style="b" aria-pressed="false" title="Чертёж"><span class="sw sw-b"></span><span>B</span><span class="nm">Чертёж</span></button>
   <button type="button" data-style="c" aria-pressed="false" title="Ночной"><span class="sw sw-c"></span><span>C</span><span class="nm">Ночной</span></button>
+</div>
+<div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+  <p>Сайт использует cookie и Яндекс Метрику, чтобы считать посещения. Подробнее в <a href="#sveden">политике обработки персональных данных</a>.</p>
+  <button class="btn btn-brand btn-sm" type="button" id="cookieOk">Понятно</button>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
 
@@ -809,12 +828,16 @@ $('#form').addEventListener('submit', e => {
     const inp = $(sel), err = inp.nextElementSibling, good = test(inp.value);
     err.hidden = good; inp.setAttribute('aria-invalid', !good); if(!good && ok){ inp.focus(); ok = false; }
   });
+  const consent = $('#f-consent'), cErr = $('#consentErr');
+  cErr.hidden = consent.checked;
+  if(!consent.checked && ok){ consent.focus(); ok = false; }
   if(!ok) return;
   const city = $('#f-city').value;
   $('#successText').textContent = `${$('#f-name').value.trim()}, спасибо. Методист ${city==='Комсомольск-на-Амуре'?'центра в Комсомольске-на-Амуре':'центра в Хабаровске'} перезвонит в ближайшее рабочее время.`;
   $('#form').hidden = true; $('#success').hidden = false;
 });
-$('#again').addEventListener('click', () => { $('#form').reset(); $('#orgRow').hidden=false; document.querySelectorAll('#whoSeg button').forEach(x=>x.setAttribute('aria-pressed', x.dataset.who==='org')); $('#success').hidden = true; $('#form').hidden = false; });
+$('#f-consent').addEventListener('change', e => { if(e.target.checked) $('#consentErr').hidden = true; });
+$('#again').addEventListener('click', () => { $('#form').reset(); $('#consentErr').hidden = true; $('#orgRow').hidden=false; document.querySelectorAll('#whoSeg button').forEach(x=>x.setAttribute('aria-pressed', x.dataset.who==='org')); $('#success').hidden = true; $('#form').hidden = false; });
 
 // Copy buttons
 let toastT;
@@ -877,6 +900,13 @@ document.querySelector('.styler').addEventListener('click', e => {
   applyStyle(b.dataset.style, true);
   if(styleFromHash()) history.replaceState(null, '', '#style-' + b.dataset.style);
 });
+
+// Cookie notice, shown until dismissed
+let cookieSeen = false; try{ cookieSeen = localStorage.getItem('ikc-cookie') === '1'; }catch(e){}
+$('#cookie').hidden = cookieSeen;
+$('#cookieOk').addEventListener('click', () => { $('#cookie').hidden = true; try{ localStorage.setItem('ikc-cookie','1'); }catch(e){} });
+// Links to the mandatory section are placeholders in the prototype
+document.addEventListener('click', e => { const a = e.target.closest('a[href="#sveden"]'); if(!a) return; e.preventDefault(); toast('В рабочем сайте здесь будет страница из раздела /sveden/'); });
 
 render();
 </script>

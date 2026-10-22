@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Требования к сайту ИКЦ</title>
+<meta name="description" content="Проверка текущего сайта и прототипа учебного центра ИКЦ по требованиям к сайтам образовательных организаций.">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9ItCY0JrQpiI+PHJlY3Qgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIHJ4PSIyNiIgZmlsbD0iIzE2NjBDNCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0IDE0KSBzY2FsZSgwLjg4KSI+PHBvbHlnb24gcG9pbnRzPSIwLDUwIDUwLDAgNTAsNTAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zLjIgLTMuMikiIGZpbGw9IiNGRkZGRkYiLz48cG9seWdvbiBwb2ludHM9IjUwLDAgMTAwLDUwIDUwLDUwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzLjIgLTMuMikiIGZpbGw9IiNGRkZGRkYiLz48cG9seWdvbiBwb2ludHM9IjAsNTAgNTAsMTAwIDUwLDUwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMy4yIDMuMikiIGZpbGw9IiNGRkZGRkYiLz48cG9seWdvbiBwb2ludHM9IjUwLDUwIDEwMCw1MCA1MCwxMDAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDguMiA4LjIpIiBmaWxsPSIjRTYzQjJFIi8+PC9nPjwvc3ZnPg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@600;700&display=swap">
+<style>
+/* Чеклист: синяя шапка, сводка по трём статусам, таблица требований по группам, источники */
+:root{
+  --bg:#F3F6FA; --surface:#FFFFFF; --ink:#0E2135; --muted:#56677B; --line:#D9E1EA;
+  --brand:#1559A8; --brand-soft:#E5EEF8; --hero:#0D3A6E; --hero-ink:#FFFFFF; --hero-muted:#B9CDE6; --signal:#F5B800;
+  --ok:#1E7F4F; --ok-soft:#E3F3EA; --warn:#9A6400; --warn-soft:#FBF0D9; --bad:#B42318; --bad-soft:#FBE7E5;
+  --display:"Unbounded","Golos Text",system-ui,sans-serif; --body:"Golos Text","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1520; --surface:#111F2E; --ink:#E6EDF5; --muted:#93A4B7; --line:#22364B; --brand:#5A9BEA; --brand-soft:#15304D; --hero:#0C2744;
+    --ok:#4CC28A; --ok-soft:#12301F; --warn:#F2B740; --warn-soft:#33270C; --bad:#F2796B; --bad-soft:#3A1714; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1520; --surface:#111F2E; --ink:#E6EDF5; --muted:#93A4B7; --line:#22364B; --brand:#5A9BEA; --brand-soft:#15304D; --hero:#0C2744;
+  --ok:#4CC28A; --ok-soft:#12301F; --warn:#F2B740; --warn-soft:#33270C; --bad:#F2796B; --bad-soft:#3A1714; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--body)}
+a{color:var(--brand);text-underline-offset:3px}
+h1,h2{font-family:var(--display);margin:0;line-height:1.15;text-wrap:balance}
+.wrap{max-width:1160px;margin-inline:auto;padding-inline:20px}
+.top{background:var(--hero);color:var(--hero-ink);position:relative}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(-45deg,var(--signal) 0 12px,var(--hero) 12px 24px)}
+.top .wrap{padding-block:24px 56px;display:grid;gap:16px}
+.top .logo svg{height:50px;width:auto;display:block}
+.back{color:var(--hero-muted);font-size:.9rem;justify-self:start}
+.top h1{font-size:clamp(1.6rem,1.2rem + 2vw,2.6rem);max-width:24ch;margin-top:12px}
+.top p{color:var(--hero-muted);max-width:68ch;margin:0}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-block:32px 8px}
+.sum{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:grid;gap:4px}
+.sum b{font-family:var(--display);font-size:1.6rem;font-variant-numeric:tabular-nums}
+.sum span{color:var(--muted);font-size:.92rem}
+.sum.ok b{color:var(--ok)} .sum.warn b{color:var(--warn)} .sum.bad b{color:var(--bad)}
+h2{font-size:1.25rem;margin:40px 0 14px}
+.table{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:760px;font-size:.94rem}
+th,td{text-align:left;vertical-align:top;padding:14px 16px;border-top:1px solid var(--line)}
+thead th{border-top:0;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--bg)}
+td:first-child{width:34%}
+td small{display:block;color:var(--muted);margin-top:4px;font-size:.82rem}
+.st{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
+.st::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.st.ok{color:var(--ok);background:var(--ok-soft)} .st.warn{color:var(--warn);background:var(--warn-soft)} .st.bad{color:var(--bad);background:var(--bad-soft)}
+.note{margin-top:6px;color:var(--muted);font-size:.86rem}
+.sources{padding-block:8px 56px;color:var(--muted);font-size:.9rem}
+.sources ul{padding-left:1.1em;display:grid;gap:4px}
+@media (max-width:640px){.summary{grid-template-columns:1fr}.wrap{padding-inline:16px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 112" role="img" aria-label="ИКЦ"><g transform="translate(4 4) scale(1.0)"><polygon points="0,50 50,0 50,50" transform="translate(-3.2 -3.2)" fill="#FFFFFF"/><polygon points="50,0 100,50 50,50" transform="translate(3.2 -3.2)" fill="#FFFFFF"/><polygon points="0,50 50,100 50,50" transform="translate(-3.2 3.2)" fill="#FFFFFF"/><polygon points="50,50 100,50 50,100" transform="translate(8.7 8.7)" fill="#E63B2E"/></g><g fill="#FFFFFF" transform="translate(132 14) scale(1.22)"><g><rect x="0" y="0" width="9" height="40"/><rect x="27" y="0" width="9" height="40"/><polygon points="9,26 27,0 27,14 9,40"/></g><g transform="translate(43 0)"><rect x="0" y="0" width="9" height="40"/><polygon points="9,17 21,0 32,0 17,21 9,27"/><polygon points="14,18 33,40 22,40 9,25"/></g><g transform="translate(83 0)"><rect x="0" y="0" width="9" height="40"/><rect x="25" y="0" width="9" height="40"/><rect x="0" y="31" width="39" height="9"/><rect x="31" y="31" width="8" height="17"/></g></g><text x="133" y="93" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-weight="700" font-size="15" letter-spacing="2.3" fill="#FFFFFF">УЧЕБНЫЙ ЦЕНТР</text></svg></span>
+    <a class="back" href="index.html">← К вариантам дизайна</a>
+    <h1>Сайт и требования к образовательным организациям</h1>
+    <p>Проверка текущего сайта uc.ikcgroup.ru и нового прототипа по ст. 29 закона «Об образовании», приказу Рособрнадзора № 1493 (с изменениями от 1 марта 2026 года) и закону о персональных данных. Октябрь 2026 года.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="summary">
+    <div class="sum bad"><b>9</b><span>нарушений на текущем сайте</span></div>
+    <div class="sum ok"><b>8</b><span>требований уже учтено в прототипе</span></div>
+    <div class="sum warn"><b>6</b><span>пунктов нужно закрыть при сборке сайта и с помощью документов клиента</span></div>
+  </div>
+
+  <h2>Раздел «Сведения об образовательной организации»</h2>
+  <div class="table"><table>
+    <thead><tr><th>Требование</th><th>Сейчас на сайте</th><th>В новом сайте</th></tr></thead>
+    <tbody>
+      <tr><td>Специальный раздел с адресом <b>/sveden/</b> и ссылкой с главной страницы<small>Приказ 1493, пп. 1–3</small></td>
+        <td><span class="st bad">Нет</span><div class="note">Раздел лежит по адресу /svedeniya-ob-obrazovatelnoy-organizatsii/2019-02-05-07-00-57/…, адрес /sveden/ отдаёт 404.</div></td>
+        <td><span class="st ok">В прототипе</span><div class="note">Ссылка в шапке («Сведения об ОО») и в подвале у каждой организации. Адреса /sveden/common, /sveden/document и т. д. задаются при сборке.</div></td></tr>
+      <tr><td>Все обязательные подразделы: основные сведения, структура, документы, образование, руководство, педагогический состав, МТО и доступная среда, платные услуги, ФХД, вакантные места, стипендии, международное сотрудничество, питание<small>Приказ 1493, п. 3</small></td>
+        <td><span class="st bad">5 из 13</span><div class="note">Есть только основные сведения, структура, документы, программы и платные услуги.</div></td>
+        <td><span class="st warn">При сборке</span><div class="note">Все 13 страниц. Где сведений нет, пишется, что информация отсутствует или деятельность не ведётся, страницу не убирают.</div></td></tr>
+      <tr><td>Микроразметка itemprop для автоматического мониторинга Рособрнадзора<small>Приказ 1493, методические рекомендации</small></td>
+        <td><span class="st bad">Нет</span><div class="note">На странице «Основные сведения» нет ни одного атрибута itemprop.</div></td>
+        <td><span class="st warn">При сборке</span><div class="note">Закладывается в шаблоны страниц /sveden/. Проверка валидатором АИС «Мониторинг».</div></td></tr>
+      <tr><td>Отдельные сведения по каждой организации: НУ ДПО и АНО ДПО</td>
+        <td><span class="st bad">Сломано</span><div class="note">Ссылки АНО ДПО ведут на страницу контактов или на главную.</div></td>
+        <td><span class="st ok">В прототипе</span><div class="note">Два отдельных блока в подвале. Нужно решить с клиентом: у каждой организации свой раздел на общем сайте или свой сайт.</div></td></tr>
+      <tr><td>Лицензия или выписка из реестра лицензий в «Основных сведениях»<small>Приказ 1493, п. 7</small></td>
+        <td><span class="st bad">Нет</span><div class="note">На странице «Основные сведения» лицензия не упоминается.</div></td>
+        <td><span class="st warn">Нужны данные</span><div class="note">В подвале прототипа место под номер и дату. Нужны выписки обеих организаций.</div></td></tr>
+      <tr><td>Документы о приёме, переводе и отчислении в виде электронных документов, а не текста на странице<small>Приказ 1493 в ред. от 1 марта 2026, п. 10</small></td>
+        <td><span class="st warn">Проверить</span><div class="note">Нужно сверить список документов с клиентом.</div></td>
+        <td><span class="st warn">При сборке</span><div class="note">Загружаем PDF, подписанные электронной подписью, где это требуется.</div></td></tr>
+      <tr><td>Сведения о педагогах по каждой образовательной программе, повышение квалификации за последние 3 года<small>Приказ 1493, п. 12</small></td>
+        <td><span class="st bad">Нет</span><div class="note">Подраздела «Педагогический состав» нет.</div></td>
+        <td><span class="st warn">Нужны данные</span><div class="note">Таблица преподавателей с привязкой к программам. Данные даёт клиент.</div></td></tr>
+      <tr><td>Стоимость обучения и образец договора в «Платных образовательных услугах»</td>
+        <td><span class="st warn">Проверить</span><div class="note">Подраздел есть, содержание нужно сверить.</div></td>
+        <td><span class="st ok">Связано с каталогом</span><div class="note">В карточке курса можно показывать цену из того же источника, что и в /sveden/paid_edu.</div></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Доступность</h2>
+  <div class="table"><table>
+    <thead><tr><th>Требование</th><th>Сейчас на сайте</th><th>В новом сайте</th></tr></thead>
+    <tbody>
+      <tr><td>Версия для слабовидящих<small>Отдельный пункт приказа 1493 утратил силу с 1 марта 2026. Остаются ГОСТ Р 52872-2019 и закон 419-ФЗ.</small></td>
+        <td><span class="st warn">Баннер</span><div class="note">Огромный баннер, ведущий на отдельную версию.</div></td>
+        <td><span class="st ok">В прототипе</span><div class="note">Кнопка в шапке включает крупный шрифт и высокий контраст на любой странице. Проверяющие по-прежнему ждут такую версию, поэтому оставляем.</div></td></tr>
+      <tr><td>Работа на телефоне, клавиатурная навигация, подписи к картинкам, читаемый контраст</td>
+        <td><span class="st bad">Нет</span><div class="note">Нет мобильной версии, вёрстка таблицами, текст на картинках.</div></td>
+        <td><span class="st ok">В прототипе</span><div class="note">Адаптивная вёрстка, видимый фокус, подписи к полям и картинкам.</div></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Персональные данные</h2>
+  <div class="table"><table>
+    <thead><tr><th>Требование</th><th>Сейчас на сайте</th><th>В новом сайте</th></tr></thead>
+    <tbody>
+      <tr><td>Согласие на обработку персональных данных отдельным документом, не «нажимая кнопку, вы соглашаетесь»<small>152-ФЗ в ред. 156-ФЗ, с 1 сентября 2025</small></td>
+        <td><span class="st bad">Нет</span><div class="note">Формы заявок без отдельного согласия.</div></td>
+        <td><span class="st ok">В прототипе</span><div class="note">Отдельная галочка, по умолчанию не отмечена. Без неё заявка не отправляется. Ссылка ведёт на текст согласия.</div></td></tr>
+      <tr><td>Опубликованная политика обработки персональных данных<small>152-ФЗ, ст. 18.1</small></td>
+        <td><span class="st bad">Нет</span><div class="note">На главной ссылки на политику нет.</div></td>
+        <td><span class="st ok">В прототипе</span><div class="note">Ссылки в подвале и у формы. Текст политики готовит клиент или юрист.</div></td></tr>
+      <tr><td>Уведомление о cookie и Яндекс Метрике</td>
+        <td><span class="st warn">Нет</span><div class="note">Метрика стоит, уведомления нет.</div></td>
+        <td><span class="st ok">В прототипе</span><div class="note">Плашка внизу экрана, показывается один раз.</div></td></tr>
+      <tr><td>Хранение заявок и шрифтов на серверах в России</td>
+        <td><span class="st warn">Проверить</span><div class="note">Шрифт подгружается с Google Fonts.</div></td>
+        <td><span class="st warn">При сборке</span><div class="note">Российский хостинг, шрифты на своём сервере, заявки в почту или CRM в РФ.</div></td></tr>
+    </tbody>
+  </table></div>
+
+  <section class="sources">
+    <h2>Что учесть</h2>
+    <p>Требования к сайтам менялись 1 марта 2026 года, ещё часть изменений вступает в силу 1 сентября 2026 года. Перед запуском нужно сверить структуру раздела с действующей редакцией приказа 1493 в КонсультантПлюс или Гаранте. Тексты политики и согласия должен проверить юрист клиента.</p>
+    <h2>Источники</h2>
+    <ul>
+      <li><a href="https://normativ.kontur.ru/document?moduleId=1&documentId=502294">Приказ Рособрнадзора от 04.08.2023 № 1493, Контур.Норматив</a></li>
+      <li><a href="https://db-nica.ru/blog/aktualizaciya-trebovaniy-k-strukture-i-soderghaniyu-oficialynogo-sayta-chto-izmenitsya-s-1">Изменения с 1 марта 2026 года (приказ № 1353)</a></li>
+      <li><a href="https://uchi.pro/blog/sajt-uchebnogo-centra-prikaz-1493">Структура сайта учебного центра по приказу 1493</a></li>
+      <li><a href="https://ppt.ru/news/personal-data/oformlyat-soglasie-na-obrabotku-personalnykh-dannykh-nuzhno-budet-po-novomu">Согласие на обработку персональных данных с 1 сентября 2025 года</a></li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
